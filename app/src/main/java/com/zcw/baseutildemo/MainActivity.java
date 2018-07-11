@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.zcw.base.AppInfoUtils;
+import com.zcw.base.CommonUtils;
 import com.zcw.base.LogUtil;
 import com.zcw.base.view.CustomDialog;
 
