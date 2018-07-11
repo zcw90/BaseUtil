@@ -1,0 +1,9 @@
+<resources>
+    <!-- dialog透明style -->
+    <style name="dialog_transparent" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+</resources>
