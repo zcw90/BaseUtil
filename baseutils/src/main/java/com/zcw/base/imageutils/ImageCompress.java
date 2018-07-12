@@ -82,7 +82,7 @@ public class ImageCompress {
      */
     public static Bitmap imageCompressSize(String path, int size) {
         Bitmap bitmap = BitmapFactory.decodeFile(path);
-        LogUtil.e(TAG, "imageCompressSize Compress before:" + bitmap.getByteCount() / 1024 + "kb");
+        LogUtil.d(TAG, "imageCompressSize Compress before:" + bitmap.getByteCount() / 1024 + "kb");
         return imageCompressSize(bitmap, size);
     }
 
@@ -99,7 +99,7 @@ public class ImageCompress {
         canvas.drawBitmap(bitmap, null, rect, null);
 
         bitmap.recycle();
-        LogUtil.e(TAG, "imageCompressSize Compress after:" + result.getByteCount() / 1024 + "kb");
+        LogUtil.d(TAG, "imageCompressSize Compress after:" + result.getByteCount() / 1024 + "kb");
         return result;
     }
 
@@ -110,10 +110,10 @@ public class ImageCompress {
      * @return
      */
     public static Bitmap imageCompressMatrix(String path, float scale) {
-        LogUtil.e(TAG, "imageCompressMatrix degree:" + ImageUtils.getImageDegree(path));
+        LogUtil.d(TAG, "imageCompressMatrix degree:" + ImageUtils.getImageDegree(path));
 
         Bitmap bitmap = BitmapFactory.decodeFile(path);
-        LogUtil.e(TAG, "imageCompressMatrix Compress before:" + bitmap.getByteCount() / 1024 + "kb");
+        LogUtil.d(TAG, "imageCompressMatrix Compress before:" + bitmap.getByteCount() / 1024 + "kb");
         return imageCompressMatrix(bitmap, scale);
     }
 
@@ -129,7 +129,7 @@ public class ImageCompress {
 
         Bitmap result = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
         bitmap.recycle();
-        LogUtil.e(TAG, "imageCompressMatrix Compress after:" + result.getByteCount() / 1024 + "kb");
+        LogUtil.d(TAG, "imageCompressMatrix Compress after:" + result.getByteCount() / 1024 + "kb");
         return result;
     }
 }
