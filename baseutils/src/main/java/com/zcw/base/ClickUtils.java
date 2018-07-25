@@ -17,7 +17,7 @@ public class ClickUtils {
 
     /**
      * 是否快速点击
-     * @return 如果两次点击间隔时间,小于1s，返回true；否则返回false。
+     * @return 如果两次点击间隔时间,小于500ms，返回true；否则返回false。
      */
     public static boolean isFastClick() {
         boolean flag = true;

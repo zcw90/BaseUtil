@@ -1,10 +1,14 @@
 package com.zcw.base;
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+
+import java.util.List;
 
 /**
  * Created by 朱城委 on 2017/10/27.<br><br>
@@ -135,6 +139,29 @@ public class AppInfoUtils {
             LogUtil.e(TAG, e.getMessage());
             return "";
         }
+    }
+
+    /**
+     * 获取进程名字
+     * @param context
+     * @param pid 要获取的进程id
+     * @return 返回进程名，如果失败，返回{@link #UNKNOWN}。
+     */
+    public static String gerProcessName(Context context, int pid) {
+        ActivityManager manager = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
+
+        List<RunningAppProcessInfo> runningApps = manager.getRunningAppProcesses();
+        if(runningApps == null) {
+            return UNKNOWN;
+        }
+
+        for(RunningAppProcessInfo info : runningApps) {
+            if(info.pid == pid) {
+                return info.processName;
+            }
+        }
+
+        return UNKNOWN;
     }
 
     private static PackageInfo getPackageInfo(Context context) {

@@ -4,11 +4,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.zcw.base.AlarmUtils;
 import com.zcw.base.AppInfoUtils;
 import com.zcw.base.ClickUtils;
 import com.zcw.base.CommonUtils;
 import com.zcw.base.LogUtil;
+import com.zcw.base.daemon.DaemonManager;
 import com.zcw.base.view.CustomDialog;
+import com.zcw.baseutildemo.receiver.AlarmTestReceiver;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -26,6 +29,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_app_info).setOnClickListener(this);
         findViewById(R.id.btn_click_faster).setOnClickListener(this);
         findViewById(R.id.btn_click_continue).setOnClickListener(this);
+
+        findViewById(R.id.btn_daemon1).setOnClickListener(this);
+        findViewById(R.id.btn_daemon2).setOnClickListener(this);
+        findViewById(R.id.btn_alarm_start).setOnClickListener(this);
+        findViewById(R.id.btn_alarm_stop).setOnClickListener(this);
     }
 
     @Override
@@ -45,6 +53,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btn_click_continue:
                 clickContinueTest();
+                break;
+
+            case R.id.btn_daemon1:
+                DaemonManager.startDaemonJobService(MainActivity.this, 2000);
+                break;
+
+            case R.id.btn_daemon2:
+                DaemonManager.startDaemonService(MainActivity.this, 4000);
+                break;
+
+            case R.id.btn_alarm_start:
+                AlarmUtils.startAlarm(MainActivity.this,6000, AlarmTestReceiver.class);
+                break;
+
+            case R.id.btn_alarm_stop:
+                AlarmUtils.stopAlarm(MainActivity.this, AlarmTestReceiver.class);
                 break;
         }
     }

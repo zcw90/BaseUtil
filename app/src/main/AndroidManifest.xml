@@ -10,13 +10,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            <activity
+                android:name=".MainActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+            </activity>
+
+            <receiver
+                android:name=".receiver.AlarmTestReceiver"
+                android:enabled="true"
+                android:exported="false">
+                <intent-filter>
+                    <action android:name="com.zcw.base.alarm"/>
+                </intent-filter>
+            </receiver>
+
+            <!-- 接收守护进程所发送的唤醒广播 -->
+            <receiver
+                android:name=".receiver.DaemonTestReceiver"
+                android:enabled="true"
+                android:exported="false">
+                <intent-filter>
+                    <action android:name="com.zcw.base.daemon.wake"/>
+                </intent-filter>
+            </receiver>
     </application>
 
 </manifest>

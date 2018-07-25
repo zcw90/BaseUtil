@@ -43,6 +43,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Continue Click Test" />
+
+            <Button
+                android:id="@+id/btn_daemon1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="守护进程1" />
+
+            <Button
+                android:id="@+id/btn_daemon2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="守护进程2" />
+
+            <Button
+                android:id="@+id/btn_alarm_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="开始定时器" />
+
+            <Button
+                android:id="@+id/btn_alarm_stop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="停止定时器" />
         </LinearLayout>
     </ScrollView>
 

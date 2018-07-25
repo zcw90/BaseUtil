@@ -1,8 +1,10 @@
 package com.zcw.base;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 
@@ -197,5 +199,21 @@ public class FileUtils {
             return result;
         }
         return result;
+    }
+
+    /**
+     * 关闭流
+     * @param closeable
+     */
+    public static void closeStream(Closeable closeable) {
+        try {
+            if(closeable != null) {
+                closeable.close();
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            LogUtil.e(TAG, "关闭流失败");
+        }
     }
 }
