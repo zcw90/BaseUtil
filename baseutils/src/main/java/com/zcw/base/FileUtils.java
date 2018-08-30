@@ -133,6 +133,28 @@ public class FileUtils {
     }
 
     /**
+     * 获取目录下所有文件名
+     * @param fileDir
+     * @return 如果目录为空或者目录不存在，返回空字符串数组；<br>
+     *     如果{@code fileDir}为文件名，返回只含文件名的字符串数组。
+     */
+    public static String[] getDirFiles(String fileDir) {
+        File dir = new File(fileDir);
+
+        if(!dir.exists()) {
+            return new String[] {};
+        }
+        else {
+            if(dir.isFile()) {
+                return new String[] { dir.getName() };
+            }
+            else {
+                return dir.list();
+            }
+        }
+    }
+
+    /**
      * 获取文件夹下符合要求的文件
      *
      * @param fileDir
@@ -215,5 +237,39 @@ public class FileUtils {
             e.printStackTrace();
             LogUtil.e(TAG, "关闭流失败");
         }
+    }
+
+    /**
+     * 清理目录过期的文件
+     * @param dir 要清理的目录
+     * @param millis 过期时间(ms)
+     */
+    public static void clearDir(final String dir, final long millis) {
+        if(dir == null) {
+            LogUtil.e(TAG, "目录为空，清理失败");
+            return ;
+        }
+
+        // 在新线程中删除过期的文件
+        ThreadPoolUtils.getScheduledExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                String[] fileList = getDirFiles(dir);
+                for(int i = 0; i < fileList.length; i++) {
+                    File file;
+                    if(fileList.length == 1) {
+                        file = new File(dir);   // 如果dir是文件名，则直接生成文件。
+                    }
+                    else {
+                        file = new File(dir + fileList[i]);
+                    }
+
+                    long lastModified = file.lastModified();
+                    if((System.currentTimeMillis() - lastModified) > millis) {
+                        deleteDir(file);
+                    }
+                }
+            }
+        });
     }
 }

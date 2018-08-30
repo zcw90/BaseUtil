@@ -9,9 +9,12 @@ import com.zcw.base.LogUtil;
  */
 public class App extends Application {
 
+    public static App app;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        app = this;
 
         // 初始化Log工具类
         LogUtil.syncIsDebug(this);

@@ -183,7 +183,7 @@ public class CustomDialog extends Dialog {
 			setMargin(btnCancel, 0);
 		}
 		else {
-			float marginLeft = context.getResources().getDimension(R.dimen.dimens_10);
+			float marginLeft = context.getResources().getDimension(R.dimen.dimen_10);
 			setMargin(btnCancel, (int)marginLeft);
 		}
 	}
