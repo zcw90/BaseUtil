@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="custom_dialog">
+        <attr name="bg_dialog_title" format="color"/>
+        <attr name="bg_dialog_content" format="color"/>
+        <attr name="bg_dialog_button" format="reference"/>
+    </declare-styleable>
+</resources>

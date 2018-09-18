@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_alarm_stop).setOnClickListener(this);
 
         findViewById(R.id.btn_dialog).setOnClickListener(this);
+        findViewById(R.id.btn_dialog_custom).setOnClickListener(this);
     }
 
     @Override
@@ -75,6 +76,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btn_dialog:
                 dialogDemo();
+                break;
+
+            case R.id.btn_dialog_custom:
+                dialogCustomDemo();
                 break;
         }
     }
@@ -130,6 +135,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void dialogDemo() {
         final CustomDialog dialog = new CustomDialog(MainActivity.this);
+        dialog.withTitle("This is title");
+        dialog.withMessage("Dialog Demo!!!");
+        dialog.withButton1("确定", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.withButton2("取消", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void dialogCustomDemo() {
+        final CustomDialog dialog = new CustomDialog(MainActivity.this, R.style.dialog_transparent_custom1);
+        dialog.withTitle("This is title");
         dialog.withMessage("Dialog Demo!!!");
         dialog.withButton1("确定", new View.OnClickListener() {
             @Override

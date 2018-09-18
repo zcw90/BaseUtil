@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="dialog_transparent.custom1" parent="dialog_transparent">
+        <item name="bg_dialog_title">@android:color/darker_gray</item>
+        <item name="bg_dialog_content">@android:color/holo_red_dark</item>
+        <item name="bg_dialog_button">@drawable/selector_button1</item>
+    </style>
 </resources>

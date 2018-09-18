@@ -2,9 +2,12 @@ package com.zcw.base.view;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zcw.base.R;
@@ -26,6 +29,9 @@ public class CustomDialog extends Dialog {
 	
 	/** 包含按钮的LinearLayout */
 	private LinearLayout llButton;
+
+	/** 包含内容和按钮的RelativeLayout */
+	private RelativeLayout rlContent;
 	
 	public CustomDialog(Context context) {
 		this(context, R.style.dialog_transparent);
@@ -33,19 +39,31 @@ public class CustomDialog extends Dialog {
 	
 	public CustomDialog(Context context, int themeResId) {
 		super(context, themeResId);
-		init(context);
+		init(context, themeResId);
 	}
 
-	private void init(Context context) {
+	private void init(Context context, int themeResId) {
 		this.context = context;
 		View dialogView = View.inflate(context, R.layout.dialog_custom, null);
 		
 		tvTitle = dialogView.findViewById(R.id.tv_dialog_title);
 		tvMessage = dialogView.findViewById(R.id.tv_dialog_message);
+		rlContent = dialogView.findViewById(R.id.rl_dialog_content);
 		llButton = dialogView.findViewById(R.id.ll_button);
 		btnOk = dialogView.findViewById(R.id.btn_ok);
 		btnCancel = dialogView.findViewById(R.id.btn_cancel);
-		
+
+		// 设置dialog标题背景、主体背景、按钮样式
+		TypedArray typedArray = context.getTheme().obtainStyledAttributes(themeResId, R.styleable.custom_dialog);
+		int colorTitle = typedArray.getColor(R.styleable.custom_dialog_bg_dialog_title, context.getResources().getColor(R.color.dialog_title));
+		int colorContent = typedArray.getColor(R.styleable.custom_dialog_bg_dialog_content, context.getResources().getColor(R.color.dialog_content));
+		int resButton = typedArray.getResourceId(R.styleable.custom_dialog_bg_dialog_button, R.drawable.selector_button);
+		tvTitle.setBackgroundColor(colorTitle);
+		rlContent.setBackgroundColor(colorContent);
+		btnOk.setBackgroundResource(resButton);
+		btnCancel.setBackgroundResource(resButton);
+		typedArray.recycle();
+
 		setContentView(dialogView);
 	}
 

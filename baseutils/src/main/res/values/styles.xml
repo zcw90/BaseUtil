@@ -4,6 +4,8 @@
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="bg_dialog_title">@color/dialog_title</item>
+        <item name="bg_dialog_content">@color/dialog_content</item>
+        <item name="bg_dialog_button">@drawable/selector_button</item>
     </style>
-
 </resources>
