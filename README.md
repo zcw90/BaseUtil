@@ -2,7 +2,10 @@
 Android Base Util
 
 # Gradle
-dependencies {
-    ....
+```
+dependencies{
+    ...
     implementation 'com.zcw.base:baseutils:0.0.8'
 }
+
+```
