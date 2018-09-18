@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_daemon2).setOnClickListener(this);
         findViewById(R.id.btn_alarm_start).setOnClickListener(this);
         findViewById(R.id.btn_alarm_stop).setOnClickListener(this);
+
+        findViewById(R.id.btn_dialog).setOnClickListener(this);
     }
 
     @Override
@@ -69,6 +71,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btn_alarm_stop:
                 AlarmUtils.stopAlarm(MainActivity.this, AlarmTestReceiver.class);
+                break;
+
+            case R.id.btn_dialog:
+                dialogDemo();
                 break;
         }
     }
@@ -119,6 +125,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         dialog.setCanceledOnTouchOutside(false);
         dialog.withMessage("恭喜你，完成了20次点击");
+        dialog.show();
+    }
+
+    private void dialogDemo() {
+        final CustomDialog dialog = new CustomDialog(MainActivity.this);
+        dialog.withMessage("Dialog Demo!!!");
+        dialog.withButton1("确定", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.withButton2("取消", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         dialog.show();
     }
 }

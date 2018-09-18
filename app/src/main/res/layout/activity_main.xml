@@ -24,49 +24,81 @@
                 android:id="@+id/btn_log"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Log Test" />
+                android:background="@drawable/selector_button"
+                android:text="Log Test"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btn_app_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="AppInfo Test" />
+                android:layout_marginTop="@dimen/dimen_8"
+                android:background="@drawable/selector_button"
+                android:text="AppInfo Test"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btn_click_faster"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Faster Click Test" />
+                android:layout_marginTop="@dimen/dimen_8"
+                android:background="@drawable/selector_button"
+                android:text="Faster Click Test"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btn_click_continue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Continue Click Test" />
+                android:layout_marginTop="@dimen/dimen_8"
+                android:background="@drawable/selector_button"
+                android:text="Continue Click Test"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btn_daemon1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="守护进程1" />
+                android:layout_marginTop="@dimen/dimen_8"
+                android:background="@drawable/selector_button"
+                android:text="守护进程1"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btn_daemon2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="守护进程2" />
+                android:layout_marginTop="@dimen/dimen_8"
+                android:background="@drawable/selector_button"
+                android:text="守护进程2"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btn_alarm_start"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="开始定时器" />
+                android:layout_marginTop="@dimen/dimen_8"
+                android:background="@drawable/selector_button"
+                android:text="开始定时器"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btn_alarm_stop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="停止定时器" />
+                android:layout_marginTop="@dimen/dimen_8"
+                android:background="@drawable/selector_button"
+                android:text="停止定时器"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btn_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8"
+                android:background="@drawable/selector_button"
+                android:text="Dialog"
+                android:textColor="@color/white" />
         </LinearLayout>
     </ScrollView>
 
