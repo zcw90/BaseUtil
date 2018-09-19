@@ -41,9 +41,8 @@
 
             <Button
                 android:id="@+id/btn_ok"
-                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/selector_button"
                 android:textColor="@color/white"
@@ -51,9 +50,8 @@
 
             <Button
                 android:id="@+id/btn_cancel"
-                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dimen_10"
                 android:layout_marginStart="@dimen/dimen_10"
                 android:layout_weight="1"
