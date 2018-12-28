@@ -5,7 +5,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 def siteUrl = 'https://github.com/zcw90/BaseUtil'    // project homepage
 def gitUrl = 'https://github.com/zcw90/BaseUtil.git' // project git
 
-version = "0.0.10"   // 上传道jcenter的版本号
+version = "0.0.11"   // 上传道jcenter的版本号
 group = "com.zcw.base"
 
 android {
@@ -14,8 +14,8 @@ android {
 
     defaultConfig {
         minSdkVersion 8
-        versionCode 10
-        versionName "0.0.10"
+        versionCode 11
+        versionName "0.0.11"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -31,14 +31,13 @@ android {
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
-
-    api 'com.android.support:appcompat-v7:27.1.1'
+    api fileTree(include: ['*.jar'], dir: 'libs')
     api 'com.squareup.retrofit2:retrofit:2.3.0'
     api 'io.reactivex.rxjava2:rxandroid:2.0.1'
     api 'io.reactivex.rxjava2:rxjava:2.1.4'
     api 'com.squareup.retrofit2:converter-gson:2.3.0'
     api 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    implementation 'com.android.support:support-v4:27.1.1'
 }
 
 install {
