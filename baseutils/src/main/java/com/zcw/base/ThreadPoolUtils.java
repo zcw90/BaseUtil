@@ -9,6 +9,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
  */
 
 public class ThreadPoolUtils {
+    private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
 
     /** 延时时间（ms） */
     public static final int DELAY_MILLISECONDS = 5000;
@@ -22,6 +23,6 @@ public class ThreadPoolUtils {
     }
 
     private static class ScheduledInstance {
-        private static ScheduledExecutorService Instance = new ScheduledThreadPoolExecutor(128);
+        private static ScheduledExecutorService Instance = new ScheduledThreadPoolExecutor(CPU_COUNT + 1);
     }
 }
