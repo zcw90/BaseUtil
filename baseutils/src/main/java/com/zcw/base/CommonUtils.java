@@ -15,8 +15,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.PermissionChecker;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -350,6 +353,30 @@ public class CommonUtils {
             manager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(),
                     InputMethodManager.HIDE_NOT_ALWAYS);
         }
+    }
+
+    /**
+     * 根据点击EditView，判断是否需要隐藏软键盘
+     *
+     * @param view
+     * @param event
+     * @return 如果需要隐藏软键盘，返回true；否在返回false。
+     */
+    public static boolean isShouldHideKeyboard(View view, MotionEvent event) {
+        if (view != null && (view instanceof EditText)) {
+            int[] location = {0, 0};
+            view.getLocationInWindow(location);
+            int left = location[0];
+            int top = location[1];
+            int bottom = top + view.getHeight();
+            int right = left + view.getWidth();
+            if (event.getX() > left && event.getX() < right && event.getY() > top && event.getY() < bottom) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
