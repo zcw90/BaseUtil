@@ -166,8 +166,7 @@ public class CommonUtils {
     public static int getTargetSdkVersion(Context context) {
         int targetSdkVersion = Build.VERSION.SDK_INT;
         try {
-            PackageInfo info = context.getPackageManager().getPackageInfo(
-                    context.getPackageName(), 0);
+            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             targetSdkVersion = info.applicationInfo.targetSdkVersion;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -191,7 +190,6 @@ public class CommonUtils {
         }
 
         NetworkInfo networkinfo = manager.getActiveNetworkInfo();
-
         if (networkinfo == null || !networkinfo.isAvailable()) {
             return false;
         }
@@ -287,9 +285,16 @@ public class CommonUtils {
      */
     public static String getProvider(Context context) {
         String provider = "未知";
+
+        if(!hasPermission(context, "android.permission.READ_PHONE_STATE")) {
+            return provider;
+        }
         try {
             TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            String IMSI = telephonyManager.getSubscriberId();
+            String IMSI = null;
+            if (telephonyManager != null) {
+                IMSI = telephonyManager.getSubscriberId();
+            }
             LogUtil.d(TAG, "getProvider.IMSI:" + IMSI);
             if (IMSI == null) {
                 if (TelephonyManager.SIM_STATE_READY == telephonyManager.getSimState()) {
