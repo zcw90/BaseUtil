@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -74,6 +75,16 @@ public class Network {
     }
 
     /**
+     * get请求
+     * @param url 请求的url
+     * @param map 请求的参数
+     * @return
+     */
+    public Observable<Response<ResponseBody>> get(String url, Map<String, String> map) {
+        return appService.get(url, map);
+    }
+
+    /**
      * 同步get请求,同步网络请求需要在新的线程中开启，否则可能会报错。
      * @param url 请求的url
      * @param map 请求的参数
@@ -97,6 +108,16 @@ public class Network {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(getObserver(callback));
+    }
+
+    /**
+     * post请求
+     * @param url 请求的url
+     * @param map 请求的参数
+     * @return
+     */
+    public Observable<Response<ResponseBody>> post(String url, Map<String, String> map) {
+        return appService.post(url, map);
     }
 
     /**
