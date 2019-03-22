@@ -5,7 +5,7 @@ Android Base Util
 ```
 dependencies{
     ...
-    implementation 'com.zcw.base:baseutils:0.0.16'
+    implementation 'com.zcw.base:baseutils:0.0.17'
 }
 
 ```
