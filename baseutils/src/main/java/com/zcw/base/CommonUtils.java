@@ -333,9 +333,9 @@ public class CommonUtils {
      * @return 如果有此项权限，返回true；没有，返回false
      */
     public static boolean hasPermission(Context context, String permName) {
-        boolean result = true;
+        boolean result;
 
-        if (getTargetSdkVersion(context) >= 23) {
+        if (Build.VERSION.SDK_INT >= 23) {
             int hasPermission = ContextCompat.checkSelfPermission(context, permName);
             result = hasPermission == PackageManager.PERMISSION_GRANTED;
         } else {
