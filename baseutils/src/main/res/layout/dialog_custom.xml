@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:gravity="center_vertical|start"
+            android:maxLines="20"
             android:textColor="@color/white" />
 
         <LinearLayout

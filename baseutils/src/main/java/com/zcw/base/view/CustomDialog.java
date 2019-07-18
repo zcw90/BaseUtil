@@ -3,7 +3,7 @@ package com.zcw.base.view;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -52,6 +52,7 @@ public class CustomDialog extends Dialog {
 		llButton = dialogView.findViewById(R.id.ll_button);
 		btnOk = dialogView.findViewById(R.id.btn_ok);
 		btnCancel = dialogView.findViewById(R.id.btn_cancel);
+		tvMessage.setMovementMethod(ScrollingMovementMethod.getInstance());
 
 		// 设置dialog标题背景、主体背景、按钮样式
 		TypedArray typedArray = context.getTheme().obtainStyledAttributes(themeResId, R.styleable.custom_dialog);

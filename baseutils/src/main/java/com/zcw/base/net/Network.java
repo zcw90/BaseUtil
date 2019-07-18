@@ -8,9 +8,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
-
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -60,6 +57,7 @@ public class Network {
         CertificateUtils.SSLParams sslParams = CertificateUtils.getSslSocketFactory(null, null, null);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
+                .hostnameVerifier(sslParams.unSafeHostnameVerifier)
                 .build();
 
         retrofit = new Retrofit.Builder()
@@ -192,6 +190,7 @@ public class Network {
 
             @Override
             public void onError(Throwable e) {
+                e.printStackTrace();
                 callback.onAfter();
                 callback.onFailure(ERROR_CUSTOM_HTTP, NETWORK_REQUEST_FAILED, e);
             }

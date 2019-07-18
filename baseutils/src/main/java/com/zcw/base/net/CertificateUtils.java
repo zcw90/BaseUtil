@@ -29,6 +29,7 @@ public class CertificateUtils {
     public static class SSLParams {
         public SSLSocketFactory sSLSocketFactory;
         public X509TrustManager trustManager;
+        public UnSafeHostnameVerifier unSafeHostnameVerifier;
     }
 
     /**
@@ -53,6 +54,8 @@ public class CertificateUtils {
             sslContext.init(keyManagers, new TrustManager[]{trustManager}, null);
             sslParams.sSLSocketFactory = sslContext.getSocketFactory();
             sslParams.trustManager = trustManager;
+
+            sslParams.unSafeHostnameVerifier = new UnSafeHostnameVerifier();
             return sslParams;
         } catch (NoSuchAlgorithmException e) {
             throw new AssertionError(e);
@@ -66,7 +69,7 @@ public class CertificateUtils {
     /**
      * 不安全的主机名验证类
      */
-    private class UnSafeHostnameVerifier implements HostnameVerifier {
+    private static class UnSafeHostnameVerifier implements HostnameVerifier {
         @Override
         public boolean verify(String hostname, SSLSession session) {
             return true;

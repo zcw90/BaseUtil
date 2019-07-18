@@ -1,5 +1,6 @@
 package com.zcw.baseutildemo;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.zcw.base.ClickUtils;
 import com.zcw.base.CommonUtils;
 import com.zcw.base.LogUtil;
 import com.zcw.base.daemon.DaemonManager;
+import com.zcw.base.net.Network;
 import com.zcw.base.view.CustomDialog;
 import com.zcw.baseutildemo.receiver.AlarmTestReceiver;
 
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.btn_dialog).setOnClickListener(this);
         findViewById(R.id.btn_dialog_custom).setOnClickListener(this);
+
+        findViewById(R.id.btn_net_test).setOnClickListener(this);
     }
 
     @Override
@@ -80,6 +84,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btn_dialog_custom:
                 dialogCustomDemo();
+                break;
+
+            case R.id.btn_net_test:
+                netTest();
                 break;
         }
     }
@@ -169,5 +177,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         dialog.show();
+    }
+
+    private void netTest() {
+        Intent intent = new Intent(MainActivity.this, NetActivity.class);
+        startActivity(intent);
     }
 }
