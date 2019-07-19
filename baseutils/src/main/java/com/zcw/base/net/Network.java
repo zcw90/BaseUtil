@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -58,6 +59,7 @@ public class Network {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
                 .hostnameVerifier(sslParams.unSafeHostnameVerifier)
+                .connectTimeout(30, TimeUnit.SECONDS)
                 .build();
 
         retrofit = new Retrofit.Builder()
