@@ -16,5 +16,32 @@
             android:text="普通网络请求"
             android:textColor="@color/white" />
 
+        <Button
+            android:id="@+id/btn_okhttp_syn_get"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8"
+            android:background="@drawable/selector_button"
+            android:text="OkHttp同步get"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_okhttp_syn_post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8"
+            android:background="@drawable/selector_button"
+            android:text="OkHttp同步post"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_okhttp_asyn_get"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8"
+            android:background="@drawable/selector_button"
+            android:text="OkHttp异步get"
+            android:textColor="@color/white" />
+
     </LinearLayout>
 </ScrollView>
