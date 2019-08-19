@@ -11,7 +11,6 @@ import com.zcw.base.ClickUtils;
 import com.zcw.base.CommonUtils;
 import com.zcw.base.LogUtil;
 import com.zcw.base.daemon.DaemonManager;
-import com.zcw.base.net.Network;
 import com.zcw.base.view.CustomDialog;
 import com.zcw.baseutildemo.receiver.AlarmTestReceiver;
 
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_log:
-                LogUtil.d(TAG, "Log test.");
+                logTest();
                 break;
 
             case R.id.btn_app_info:
@@ -92,6 +91,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void logTest() {
+        LogUtil.d(TAG, "Log test.");
+        LogUtil.d(TAG, "Meta-data com.zcw.base.meta.data.test1: " + AppInfoUtils.getMetaDataApplication(MainActivity.this,
+                "com.zcw.base.meta.data.test1", "string"));
+        LogUtil.d(TAG, "Meta-data com.zcw.base.meta.data.test2: " + AppInfoUtils.getMetaDataApplication(MainActivity.this,
+                "com.zcw.base.meta.data.test2", "int"));
+        LogUtil.d(TAG, "Meta-data com.zcw.base.meta.data.test3: " + AppInfoUtils.getMetaDataApplication(MainActivity.this,
+                "com.zcw.base.meta.data.test3", "float"));
+        LogUtil.d(TAG, "Meta-data com.zcw.base.meta.data.test4: " + AppInfoUtils.getMetaDataApplication(MainActivity.this,
+                "com.zcw.base.meta.data.test4", "boolean"));
+        LogUtil.d(TAG, "Meta-data com.zcw.base.meta.data.test4: " + AppInfoUtils.getMetaDataApplication(MainActivity.this,
+                "com.zcw.base.meta.data.test4", "double"));
+    }
+
     private void appInfoTest() {
         StringBuilder builder = new StringBuilder();
         builder.append(AppInfoUtils.getAppName(MainActivity.this) + "\n");
@@ -99,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.append(AppInfoUtils.getAppVersionCodeInt(MainActivity.this) + "\n");
         builder.append(AppInfoUtils.getAppVersionCodeString(MainActivity.this) + "\n");
         builder.append(AppInfoUtils.getAppVersionName(MainActivity.this) + "\n");
-        builder.append(AppInfoUtils.getMetaDataApplicationInt(MainActivity.this, "AAA") + "\n");
+        builder.append(AppInfoUtils.getMetaDataApplication(MainActivity.this, "AAA", "string") + "\n");
         builder.append(AppInfoUtils.getSignatureMD5(MainActivity.this));
 
         final CustomDialog dialog = new CustomDialog(MainActivity.this);

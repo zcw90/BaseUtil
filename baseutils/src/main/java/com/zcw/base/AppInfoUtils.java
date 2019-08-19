@@ -27,7 +27,7 @@ public class AppInfoUtils {
     }
 
     /**
-     * 获取App名称
+     * 获取App名称,比如"微信"。
      *
      * @param context
      * @return 如果获取失败，返回“Unknown”。
@@ -43,7 +43,7 @@ public class AppInfoUtils {
     }
 
     /**
-     * 获取应用包名
+     * 获取应用包名,比如"com.zcw.demo"。
      *
      * @param context
      * @return 如果获取失败，返回“Unknown”。
@@ -58,7 +58,7 @@ public class AppInfoUtils {
     }
 
     /**
-     * 获取应用版本号
+     * 获取应用版本号,比如"1.0.1"。
      *
      * @param context
      * @return 如果获取失败，返回“Unknown”。
@@ -73,7 +73,7 @@ public class AppInfoUtils {
     }
 
     /**
-     * 获取应用VersionCode
+     * 获取应用VersionCode,比如:1。
      *
      * @param context
      * @return 如果获取失败，返回-1。
@@ -88,7 +88,7 @@ public class AppInfoUtils {
     }
 
     /**
-     * 获取应用VersionCode
+     * 获取应用VersionCode,比如"1"。
      *
      * @param context
      * @return 如果获取失败，返回“Unknown”。
@@ -103,21 +103,37 @@ public class AppInfoUtils {
 
     /**
      * 获取AndroidManifest.xml文件中Application标签下的meta-data值。
-     * @param context
-     * @param key
-     * @return 获取失败，返回“”。
+     * @param context 上下文
+     * @param key meta-data中的android:name
+     * @param type 获取值的类型，有"int", "string", "boolean", "float",其他暂不支持。
+     * @return 返回的结果均为字符串，比如获取int的结果“10”；获取失败，则返回“”。
      */
-    public static String getMetaDataApplicationInt(Context context, String key) {
+    public static String getMetaDataApplication(Context context, String key, String type) {
         String result = "";
 
         ApplicationInfo info;
         try {
             info = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
             if(info != null && info.metaData != null) {
-                result = String.valueOf(info.metaData.getInt(key));
+                if(type.equalsIgnoreCase("int")) {
+                    result = String.valueOf(info.metaData.getInt(key));
+                }
+                else if(type.equalsIgnoreCase("string")) {
+                    result = String.valueOf(info.metaData.getString(key));
+                }
+                else if(type.equalsIgnoreCase("boolean")) {
+                    result = String.valueOf(info.metaData.getBoolean(key));
+                }
+                else if(type.equalsIgnoreCase("float")) {
+                    result = String.valueOf(info.metaData.getFloat(key));
+                }
+                else {
+                    LogUtil.eAndSave(TAG, "不支持获取" + type + "<meta-data>数据");
+                }
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
+            LogUtil.eAndSave(TAG, e.getMessage());
             return result;
         }
 
@@ -162,6 +178,16 @@ public class AppInfoUtils {
         }
 
         return UNKNOWN;
+    }
+
+    /**
+     * 判断应用是否为debug版本
+     * <p>注意：不能主动设置 android:debuggable，否则无论 Debug 还是 Release 版会始终是设置的值。
+     * @param context 上下文
+     * @return
+     */
+    public static boolean isDebugApplication(Context context) {
+        return context.getApplicationInfo() != null && (context.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
     }
 
     private static PackageInfo getPackageInfo(Context context) {

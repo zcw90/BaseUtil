@@ -54,8 +54,7 @@ public class LogUtil {
      */
     public static void syncIsDebug(Context context, String logSavePath, long logOutOfDate) {
         if(isDebug == null) {
-            isDebug = context.getApplicationInfo() != null &&
-                    (context.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+            isDebug = AppInfoUtils.isDebugApplication(context);
         }
 
         if(logSavePath == null) {

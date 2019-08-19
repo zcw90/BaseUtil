@@ -44,6 +44,25 @@
 
         <activity
             android:name=".NetActivity"/>
+
+        <!-- 适配全面屏 -->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
+
+        <!-- meta-data数据测试 -->
+        <meta-data
+            android:name="com.zcw.base.meta.data.test1"
+            android:value="This_is_string" />
+        <meta-data
+            android:name="com.zcw.base.meta.data.test2"
+            android:value="240" />
+        <meta-data
+            android:name="com.zcw.base.meta.data.test3"
+            android:value="101.32" />
+        <meta-data
+            android:name="com.zcw.base.meta.data.test4"
+            android:value="false" />
     </application>
 
 </manifest>
