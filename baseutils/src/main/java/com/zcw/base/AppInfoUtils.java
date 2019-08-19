@@ -105,7 +105,7 @@ public class AppInfoUtils {
      * 获取AndroidManifest.xml文件中Application标签下的meta-data值。
      * @param context 上下文
      * @param key meta-data中的android:name
-     * @param type 获取值的类型，有"int", "string", "boolean", "float",其他暂不支持。
+     * @param type 获取值的类型，有"int", "long", "string", "boolean", "float", 其他暂不支持。
      * @return 返回的结果均为字符串，比如获取int的结果“10”；获取失败，则返回“”。
      */
     public static String getMetaDataApplication(Context context, String key, String type) {
@@ -117,6 +117,9 @@ public class AppInfoUtils {
             if(info != null && info.metaData != null) {
                 if(type.equalsIgnoreCase("int")) {
                     result = String.valueOf(info.metaData.getInt(key));
+                }
+                else if(type.equalsIgnoreCase("long")) {
+                    result = String.valueOf(info.metaData.getLong(key));
                 }
                 else if(type.equalsIgnoreCase("string")) {
                     result = String.valueOf(info.metaData.getString(key));

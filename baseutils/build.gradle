@@ -5,7 +5,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 def siteUrl = 'https://github.com/zcw90/BaseUtil'    // project homepage
 def gitUrl = 'https://github.com/zcw90/BaseUtil.git' // project git
 
-version = "0.0.23"   // 上传道jcenter的版本号
+version = "0.0.24"   // 上传道jcenter的版本号
 group = "com.zcw.base"
 
 android {
@@ -14,8 +14,8 @@ android {
 
     defaultConfig {
         minSdkVersion 8
-        versionCode 23
-        versionName "0.0.23"
+        versionCode 24
+        versionName "0.0.24"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
