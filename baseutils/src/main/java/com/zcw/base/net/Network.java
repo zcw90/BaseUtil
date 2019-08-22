@@ -58,7 +58,7 @@ public class Network {
         CertificateUtils.SSLParams sslParams = CertificateUtils.getSslSocketFactory(null, null, null);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
-                .hostnameVerifier(sslParams.unSafeHostnameVerifier)
+                .hostnameVerifier(sslParams.unsafeHostnameVerifier)
                 .connectTimeout(40, TimeUnit.SECONDS)
                 .readTimeout(40, TimeUnit.SECONDS)
                 .writeTimeout(40, TimeUnit.SECONDS)

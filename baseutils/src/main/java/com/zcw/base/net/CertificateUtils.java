@@ -1,5 +1,9 @@
 package com.zcw.base.net;
 
+import com.zcw.base.FileUtils;
+import com.zcw.base.net.security.UnSafeTrustManager;
+import com.zcw.base.net.security.UnsafeHostnameVerifier;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyManagementException;
@@ -11,11 +15,9 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
@@ -29,14 +31,15 @@ public class CertificateUtils {
     public static class SSLParams {
         public SSLSocketFactory sSLSocketFactory;
         public X509TrustManager trustManager;
-        public UnSafeHostnameVerifier unSafeHostnameVerifier;
+        public UnsafeHostnameVerifier unsafeHostnameVerifier;
     }
 
     /**
      * SslSocketFactory生成类。
+     *
      * @param certificates 证书流数组
-     * @param bksFile 密钥文件
-     * @param password 密钥文件密码
+     * @param bksFile      密钥文件
+     * @param password     密钥文件密码
      * @return
      */
     public static SSLParams getSslSocketFactory(InputStream[] certificates, InputStream bksFile, String password) {
@@ -48,14 +51,15 @@ public class CertificateUtils {
             X509TrustManager trustManager;
             if (trustManagers != null) {
                 trustManager = new MyTrustManager(chooseTrustManager(trustManagers));
-            } else {
+            }
+            else {
                 trustManager = new UnSafeTrustManager();
             }
             sslContext.init(keyManagers, new TrustManager[]{trustManager}, null);
+
             sslParams.sSLSocketFactory = sslContext.getSocketFactory();
             sslParams.trustManager = trustManager;
-
-            sslParams.unSafeHostnameVerifier = new UnSafeHostnameVerifier();
+            sslParams.unsafeHostnameVerifier = new UnsafeHostnameVerifier();
             return sslParams;
         } catch (NoSuchAlgorithmException e) {
             throw new AssertionError(e);
@@ -66,38 +70,11 @@ public class CertificateUtils {
         }
     }
 
-    /**
-     * 不安全的主机名验证类
-     */
-    private static class UnSafeHostnameVerifier implements HostnameVerifier {
-        @Override
-        public boolean verify(String hostname, SSLSession session) {
-            return true;
-        }
-    }
-
-    /**
-     * 不安全的证书校验管理类，不对证书进行验证
-     */
-    private static class UnSafeTrustManager implements X509TrustManager {
-        @Override
-        public void checkClientTrusted(X509Certificate[] chain, String authType)
-                throws CertificateException {
-        }
-
-        @Override
-        public void checkServerTrusted(X509Certificate[] chain, String authType)
-                throws CertificateException {
-        }
-
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {
-            return new X509Certificate[]{};
-        }
-    }
-
     private static TrustManager[] prepareTrustManager(InputStream... certificates) {
-        if (certificates == null || certificates.length <= 0) return null;
+        if (certificates == null || certificates.length <= 0) {
+            return null;
+        }
+
         try {
             CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
             KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
@@ -106,15 +83,9 @@ public class CertificateUtils {
             for (InputStream certificate : certificates) {
                 String certificateAlias = Integer.toString(index++);
                 keyStore.setCertificateEntry(certificateAlias, certificateFactory.generateCertificate(certificate));
-                try {
-                    if (certificate != null) {
-                        certificate.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                FileUtils.closeStream(certificate);
             }
-            TrustManagerFactory trustManagerFactory = null;
+            TrustManagerFactory trustManagerFactory;
             trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             trustManagerFactory.init(keyStore);
             TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();

@@ -235,7 +235,7 @@ public class FileUtils {
         }
         catch (IOException e) {
             e.printStackTrace();
-            LogUtil.e(TAG, "关闭流失败");
+            LogUtil.eAndSave(TAG, "关闭流失败: " + e.getMessage());
         }
     }
 
@@ -246,7 +246,7 @@ public class FileUtils {
      */
     public static void clearDir(final String dir, final long millis) {
         if(dir == null) {
-            LogUtil.e(TAG, "目录为空，清理失败");
+            LogUtil.eAndSave(TAG, "目录为空，清理失败");
             return ;
         }
 
