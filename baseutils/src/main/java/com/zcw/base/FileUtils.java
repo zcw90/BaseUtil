@@ -228,14 +228,14 @@ public class FileUtils {
      * @param closeable
      */
     public static void closeStream(Closeable closeable) {
-        try {
-            if(closeable != null) {
+        if(closeable != null) {
+            try {
                 closeable.close();
             }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-            LogUtil.eAndSave(TAG, "关闭流失败: " + e.getMessage());
+            catch (IOException e) {
+                e.printStackTrace();
+                LogUtil.eAndSave(TAG, "关闭流失败: " + e.getMessage());
+            }
         }
     }
 
