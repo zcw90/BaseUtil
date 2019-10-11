@@ -58,21 +58,21 @@ public class CommonUtils {
     }
 
     /**
-     * 把时间转换成指定格式，比如“yyyy-MM-dd HH:mm:ss”
+     * 把时间戳转换成指定格式，比如“yyyy-MM-dd HH:mm:ss”。
      *
-     * @param milis   时间
+     * @param millis  时间戳（ms）
      * @param pattern 时间格式，比如“yyyy-MM-dd HH:mm:ss”
-     * @return
+     * @return 返回指定时间格式，比如“yyyy-MM-dd HH:mm:ss”
      */
-    public static String dateTime(long milis, String pattern) {
-        return new SimpleDateFormat(pattern, Locale.US).format(new Date(milis));
+    public static String dateTime(long millis, String pattern) {
+        return new SimpleDateFormat(pattern, Locale.US).format(new Date(millis));
     }
 
     /**
-     * 获取当前时间
+     * 按指定格式获取当前时间，比如"yyyy-MM-dd HH:mm:ss"。
      *
      * @param format 获取时间的格式，比如"yyyy-MM-dd HH:mm:ss"
-     * @return 返回当前时间
+     * @return 返回指定格式的当前时间，比如"yyyy-MM-dd HH:mm:ss"
      */
     public static String getCurrentTime(String format) {
         SimpleDateFormat formatter = new SimpleDateFormat(format, Locale.US);
@@ -83,11 +83,11 @@ public class CommonUtils {
     }
 
     /**
-     * 将时间转换为时间戳
+     * 把指定格式时间（比如"yyyy-MM-dd HH:mm:ss"）转换为时间戳。
      *
      * @param time   要转换的时间
-     * @param format {@code time}的时间格式，如“yyyyMMddHHmmss”
-     * @return
+     * @param format {@code time}的时间格式，比如"yyyy-MM-dd HH:mm:ss"
+     * @return 返回 {@code time}对应的时间戳；如果转换失败，则返回当前时间戳
      */
     public static long dateToStamp(String time, String format) {
         long result = System.currentTimeMillis();
@@ -97,13 +97,12 @@ public class CommonUtils {
         try {
             date = simpleDateFormat.parse(time);
             result = date.getTime();
+            return result;
         } catch (ParseException e) {
             e.printStackTrace();
             LogUtil.e(TAG, "转换时间戳失败");
             return result;
         }
-
-        return result;
     }
 
     /**

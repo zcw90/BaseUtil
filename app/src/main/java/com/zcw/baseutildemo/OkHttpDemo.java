@@ -6,9 +6,13 @@ import android.support.annotation.Nullable;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -16,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Authenticator;
 import okhttp3.Cache;
+import okhttp3.CacheControl;
 import okhttp3.Call;
 import okhttp3.Credentials;
 import okhttp3.FormBody;
@@ -25,6 +30,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okhttp3.Route;
 import okio.BufferedSink;
 
@@ -55,7 +61,9 @@ public class OkHttpDemo {
 //        demo.cancelCall();
 //        demo.timeOut();
 //        demo.perCall();
-        demo.authentication();
+//        demo.authentication();
+
+        demo.contributor();
     }
 
     public void accessHeader() throws IOException {
@@ -220,7 +228,7 @@ public class OkHttpDemo {
                 .build();
 
         Request request = new Request.Builder()
-                .url("http://publicobject.com/helloworld.txt")
+                .url("https://publicobject.com/helloworld.txt")
                 .build();
 
         String result1;
@@ -349,11 +357,57 @@ public class OkHttpDemo {
         }
     }
 
+    private void contributor() throws IOException {
+        Cache cache = new Cache(new File("./cache"), 10 * 1024 * 1024);
+
+        String ENDPOINT = "https://api.github.com/repos/square/okhttp/contributors";
+        Moshi MOSHI = new Moshi.Builder().build();
+        JsonAdapter<List<Contributor>> CONTRIBUTORS_JSON_ADAPTER = MOSHI.adapter(
+                Types.newParameterizedType(List.class, Contributor.class));
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .cache(cache)
+                .build();
+
+        // Create request for remote resource.
+        Request request = new Request.Builder()
+                .cacheControl(CacheControl.FORCE_CACHE)
+                .url(ENDPOINT)
+                .build();
+
+        // Execute the request and retrieve the response.
+        try (Response response = client.newCall(request).execute()) {
+            // Deserialize HTTP response to concrete type.
+            ResponseBody body = response.body();
+            List<Contributor> contributors = CONTRIBUTORS_JSON_ADAPTER.fromJson(body.source());
+
+            // Sort list by the most contributions.
+            Collections.sort(contributors, new Comparator<Contributor>() {
+                @Override
+                public int compare(Contributor c1, Contributor c2) {
+                    return c2.contributions - c1.contributions;
+                }
+            });
+
+            // Output list of contributors.
+            System.out.println("Contributor: " + contributors.size());
+            System.out.println("----------");
+            for (Contributor contributor : contributors) {
+                System.out.println(contributor.login + ": " + contributor.contributions);
+            }
+        }
+    }
+
     private static class Gist {
         Map<String, GistFile> files;
     }
 
     private static class GistFile {
         String content;
+    }
+
+    private static class Contributor {
+        String login;
+        int contributions;
     }
 }
