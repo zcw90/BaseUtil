@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -359,6 +360,12 @@ public class OkHttpDemo {
 
     private void contributor() throws IOException {
         Cache cache = new Cache(new File("./cache"), 10 * 1024 * 1024);
+
+        System.out.println("Cache directory: " + cache.directory().getAbsolutePath());
+        Iterator<String> iterator = cache.urls();
+        while (iterator.hasNext()) {
+            System.out.println("URL: " + iterator.next());
+        }
 
         String ENDPOINT = "https://api.github.com/repos/square/okhttp/contributors";
         Moshi MOSHI = new Moshi.Builder().build();
